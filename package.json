@@ -1,0 +1,19 @@
+{
+  "name": "exchange-rates",
+  "version": "1.0.0",
+  "description": "Современный конвертер валют с актуальными курсами",
+  "type": "module",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx http-server . -p 8080 -o"
+  },
+  "keywords": [
+    "currency",
+    "exchange",
+    "rates",
+    "converter"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+
