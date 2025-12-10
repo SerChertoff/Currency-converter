@@ -21,6 +21,23 @@
   padding: 0;
 }
 
+/* Оптимизация производительности */
+*,
+*::before,
+*::after {
+  will-change: auto;
+}
+
+.card,
+.logo,
+.swap-btn,
+.currency-chip,
+.input-control,
+.select-control {
+  will-change: transform;
+  contain: layout style paint;
+}
+
 body {
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     sans-serif;
@@ -34,9 +51,13 @@ body {
   color: var(--text-primary);
   position: relative;
   overflow-x: hidden;
+  /* Оптимизация рендеринга */
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Анимированный фон */
+/* Анимированный фон - оптимизирован */
 body::before {
   content: "";
   position: fixed;
@@ -67,6 +88,8 @@ body::before {
   animation: backgroundMove 20s ease-in-out infinite;
   z-index: 0;
   pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 body::after {
@@ -83,6 +106,8 @@ body::after {
   animation: pulseGlow 4s ease-in-out infinite;
   z-index: 0;
   pointer-events: none;
+  will-change: opacity;
+  transform: translateZ(0);
 }
 
 @keyframes pulseGlow {
@@ -153,6 +178,8 @@ body::after {
   );
   animation: shine 3s infinite;
   pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 @keyframes shine {
@@ -165,7 +192,7 @@ body::after {
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-8px) scale(1.02) translateZ(0);
   box-shadow: 0 25px 80px rgba(102, 126, 234, 0.6), 
               0 0 40px rgba(240, 147, 251, 0.5),
               0 0 80px rgba(250, 112, 154, 0.3);
@@ -336,7 +363,7 @@ body::after {
 
 .currency-chip:hover {
   border-color: #667eea;
-  transform: translateY(-4px) scale(1.05);
+  transform: translateY(-4px) scale(1.05) translateZ(0);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5),
               0 0 20px rgba(240, 147, 251, 0.4),
               0 0 30px rgba(250, 112, 154, 0.2);
@@ -352,7 +379,7 @@ body::after {
   box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6),
               0 0 25px rgba(240, 147, 251, 0.5),
               0 0 40px rgba(250, 112, 154, 0.3);
-  transform: translateY(-4px) scale(1.05);
+  transform: translateY(-4px) scale(1.05) translateZ(0);
   animation: activePulse 2s ease-in-out infinite;
 }
 
@@ -418,7 +445,7 @@ body::after {
   border-color: #667eea;
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4),
               0 0 15px rgba(240, 147, 251, 0.3);
-  transform: translateY(-3px);
+  transform: translateY(-3px) translateZ(0);
   background: linear-gradient(white, white) padding-box,
     var(--primary-gradient) border-box;
   border: 2px solid transparent;
@@ -429,7 +456,7 @@ body::after {
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.25),
               0 8px 30px rgba(102, 126, 234, 0.5),
               0 0 20px rgba(240, 147, 251, 0.4);
-  transform: translateY(-3px);
+  transform: translateY(-3px) translateZ(0);
   background: linear-gradient(white, white) padding-box,
     var(--primary-gradient) border-box;
   border: 2px solid transparent;
@@ -490,7 +517,7 @@ body::after {
 }
 
 .swap-btn:hover {
-  transform: rotate(180deg) scale(1.15);
+  transform: rotate(180deg) scale(1.15) translateZ(0);
   box-shadow: 0 12px 40px rgba(102, 126, 234, 0.7),
               0 0 30px rgba(240, 147, 251, 0.6),
               0 0 50px rgba(250, 112, 154, 0.4);
@@ -542,7 +569,7 @@ body::after {
   border-color: #667eea;
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4),
               0 0 15px rgba(240, 147, 251, 0.3);
-  transform: translateY(-3px);
+  transform: translateY(-3px) translateZ(0);
 }
 
 .input-control:focus {
@@ -550,7 +577,7 @@ body::after {
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2),
               0 8px 25px rgba(102, 126, 234, 0.3),
               0 0 20px rgba(240, 147, 251, 0.2);
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
   background: linear-gradient(white, white) padding-box,
     var(--primary-gradient) border-box;
   border: 2px solid transparent;
@@ -607,7 +634,7 @@ body::after {
 }
 
 .rate-info:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
   box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4),
               0 0 25px rgba(240, 147, 251, 0.3);
   border-color: rgba(102, 126, 234, 0.5);
