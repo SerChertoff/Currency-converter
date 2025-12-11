@@ -421,6 +421,7 @@ body::after {
   white-space: nowrap;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2),
               0 0 10px rgba(240, 147, 251, 0.1);
+  z-index: 0;
 }
 
 .currency-chip::before {
@@ -432,7 +433,8 @@ body::after {
   height: 100%;
   background: var(--primary-gradient);
   transition: left 0.3s ease;
-  z-index: 0;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .currency-chip:hover::before {
@@ -445,9 +447,14 @@ body::after {
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5),
               0 0 20px rgba(240, 147, 251, 0.4),
               0 0 30px rgba(250, 112, 154, 0.2);
-  color: white;
-  z-index: 1;
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Обеспечиваем видимость текста поверх градиента */
+.currency-chip > * {
   position: relative;
+  z-index: 1;
 }
 
 .currency-chip.active {
