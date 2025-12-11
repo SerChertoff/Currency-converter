@@ -161,11 +161,8 @@ const createPopularCurrencies = () => {
     chip.setAttribute("aria-pressed", "false");
     chip.setAttribute("type", "button");
 
-    // Используем делегирование событий через один обработчик
-    chip.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      
+    // Функция применения валюты
+    const applyCurrency = () => {
       if (isUpdating) return;
       
       // Обновляем активные чипы
@@ -179,14 +176,36 @@ const createPopularCurrencies = () => {
       // Устанавливаем значение селекта программно
       if (firstSelect) {
         firstSelect.value = currency.code;
-        // Триггерим событие change для обновления
-        const changeEvent = new Event("change", { bubbles: true });
-        firstSelect.dispatchEvent(changeEvent);
+        // Вызываем функцию обновления напрямую
+        updateExchangeRates();
       }
       
       // Не фокусируем селект на мобильных устройствах
       if (window.innerWidth > 768) {
         firstSelect.focus();
+      }
+    };
+
+    // Обработчик клика (для десктопа и мобильных)
+    chip.addEventListener("click", (e) => {
+      e.stopPropagation();
+      applyCurrency();
+    });
+
+    // Обработчик touch для мобильных устройств
+    let touchStartTime = 0;
+    chip.addEventListener("touchstart", (e) => {
+      touchStartTime = Date.now();
+      e.stopPropagation();
+    });
+    
+    chip.addEventListener("touchend", (e) => {
+      e.stopPropagation();
+      // Проверяем, что это был короткий тап (не свайп)
+      const touchDuration = Date.now() - touchStartTime;
+      if (touchDuration < 300) {
+        e.preventDefault();
+        applyCurrency();
       }
     });
 
@@ -195,18 +214,8 @@ const createPopularCurrencies = () => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         e.stopPropagation();
-        chip.click();
+        applyCurrency();
       }
-    });
-    
-    // Предотвращаем всплытие событий
-    chip.addEventListener("touchstart", (e) => {
-      e.stopPropagation();
-    });
-    
-    chip.addEventListener("touchend", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
     });
 
     currencyChips.set(currency.code, chip);
