@@ -950,10 +950,10 @@ body::before {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 4px 16px 8px 16px;
-    margin: 0 -16px;
+    padding: 4px 20px 8px 20px;
+    margin: 0 -20px;
     /* Улучшаем скролл на мобильных */
-    scroll-padding: 16px;
+    scroll-padding: 20px;
     /* Предотвращаем обрезание кнопок */
     box-sizing: border-box;
   }
@@ -962,12 +962,12 @@ body::before {
     display: none;
   }
 
-  /* Добавляем отступы для видимости при скролле */
+  /* Добавляем отступы для видимости при скролле - увеличиваем для предотвращения обрезания */
   .currency-chips::before,
   .currency-chips::after {
     content: '';
     flex-shrink: 0;
-    width: 8px;
+    width: 16px;
   }
 
   .currency-chip {
@@ -991,6 +991,13 @@ body::before {
     font-size: 11px;
     margin-bottom: 10px;
     text-align: center;
+  }
+
+  .popular-currencies {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 
   .popular-currencies {
