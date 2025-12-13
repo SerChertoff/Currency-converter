@@ -832,6 +832,8 @@ body::before {
     width: 100%;
     /* Исправление верстки */
     box-sizing: border-box;
+    /* Предотвращаем обрезание элементов */
+    overflow: visible;
   }
 
   .logo {
@@ -944,25 +946,28 @@ body::before {
 
   .currency-chips {
     gap: 8px;
-    justify-content: flex-start;
+    justify-content: center;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding-bottom: 4px;
+    padding: 4px 16px 8px 16px;
+    margin: 0 -16px;
     /* Улучшаем скролл на мобильных */
-    scroll-padding: 0 16px;
+    scroll-padding: 16px;
+    /* Предотвращаем обрезание кнопок */
+    box-sizing: border-box;
   }
 
   .currency-chips::-webkit-scrollbar {
     display: none;
   }
 
-  /* Улучшаем видимость при скролле */
+  /* Добавляем отступы для видимости при скролле */
   .currency-chips::before,
   .currency-chips::after {
     content: '';
     flex-shrink: 0;
-    width: 0;
+    width: 8px;
   }
 
   .currency-chip {
@@ -985,7 +990,14 @@ body::before {
   .popular-label {
     font-size: 11px;
     margin-bottom: 10px;
-    text-align: left;
+    text-align: center;
+  }
+
+  .popular-currencies {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .rate-info {
